@@ -193,7 +193,7 @@ export default function LandingPage() {
             className={
               submitted
                 ? "success-stage"
-                : "relative mx-auto flex min-h-screen max-w-[1240px] flex-col items-center justify-start px-4 pb-24 pt-[250px] sm:px-6 lg:pt-[325px]"
+                : "hero-stage"
             }
           >
             {submitted ? (
@@ -213,12 +213,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h1>
-                      Få en professionel og
-                      <br />
-                      <em>uforpligtende vurdering</em>
-                      <span className="mobile-title-suffix">
-                        <br className="hidden sm:block" /> af dit byggeprojekt
-                      </span>
+                      Få en <em>uforpligtende vurdering</em>
                     </h1>
                   </div>
                 </div>
@@ -264,7 +259,7 @@ export default function LandingPage() {
                       ) : (
                         <>
                           <span className="sm:hidden">Få et uforpligtende tilbud</span>
-                          <span className="hidden sm:inline">Få en professionel og uforpligtende vurdering</span>
+                          <span className="hidden sm:inline">Få en uforpligtende vurdering</span>
                         </>
                       )}
                       <ArrowRight className="h-4 w-4 shrink-0" />
