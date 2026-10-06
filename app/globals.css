@@ -69,9 +69,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-contrast { background: radial-gradient(ellipse at 68% 24%, rgba(182, 223, 80, .34), transparent 42%), linear-gradient(180deg, rgba(1, 7, 3, .10), rgba(1, 8, 4, .62)); }
 .hero-top-shade { display: none; height: 190px; pointer-events: none; background: radial-gradient(ellipse 62% 70% at 50% 34%, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .28) 50%, rgba(0, 0, 0, 0) 100%); }
 .hero-grain { opacity: .11; background-image: radial-gradient(rgba(255,255,255,.8) .55px, transparent .75px); background-size: 5px 5px; mix-blend-mode: overlay; pointer-events: none; }
-.hero-header { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; justify-content: flex-start; padding: 16px 28px 0; }
+.hero-header { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; justify-content: flex-start; padding: 14px 24px 0; }
 .brand-lockup { position: relative; display: block; color: #fff; text-decoration: none; }
-.brand-logo-image { display: block; width: 210px; height: auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,.36)); }.hero-stage { position: relative; display: flex; width: min(100%, 1240px); min-height: 100svh; margin: 0 auto; flex-direction: column; align-items: center; justify-content: flex-start; padding: 84px 24px 40px; }
+.brand-logo-image { display: block; width: 250px; max-width: min(250px, 72vw); height: auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,.36)); }
+.hero-stage { position: relative; display: flex; width: min(100%, 1240px); min-height: 100svh; margin: 0 auto; flex-direction: column; align-items: center; justify-content: flex-start; padding: calc(14px + 250px * 854 / 1840 + 12px) 24px 40px; }
 .hero-header-success { display: none; }
 .success-stage { position: relative; display: flex; min-height: 100svh; align-items: center; justify-content: center; padding: 42px 20px; }
 
@@ -194,8 +195,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .success-hero { min-height: 100svh; }
   .hero-background { object-position: 17% 48%; }
   .hero-top-shade { display: block; }
-  .hero-header { justify-content: center; padding: 14px 16px 0; }
-  .brand-logo-image { width: 250px; }  .hero-stage { min-height: 0; padding: 110px 16px 32px; }
+  .hero-header { justify-content: flex-start; padding: 14px 16px 0; }
+  .brand-logo-image { width: min(250px, 72vw); }
+  .hero-stage { min-height: 0; padding: calc(14px + min(250px, 72vw) * 854 / 1840 + 10px) 16px 32px; }
   .personal-card { gap: 12px; margin-bottom: -8px; padding: 12px; }
   .personal-portrait { height: 58px; width: 58px; }
   .personal-portrait img { transform: translateX(12px) scale(2.9); }
