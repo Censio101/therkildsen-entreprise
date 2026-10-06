@@ -10,7 +10,7 @@ export type LeadFormData = {
   customerType: string;
   company: string;
   service: string;
-  comment: string;
+  roofArea: string;
 };
 
 const MAILGUN_FROM = "kontakt@censio.dk";
@@ -44,7 +44,7 @@ export function buildLeadFieldBlock(data: LeadFormData) {
     fieldLine("Adresse", formatAdresse(data.address, data.postcode, data.city)),
     fieldLine("Kundetype", formatKundetype(data.customerType, data.company)),
     fieldLine("Service", data.service),
-    fieldLine("Kommentar", data.comment),
+    fieldLine("Kvadratmeter", data.roofArea ? `${data.roofArea} m²` : ""),
   ].join("\n");
 }
 

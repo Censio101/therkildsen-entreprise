@@ -48,7 +48,7 @@ type FormState = {
   customerType: CustomerType;
   company: string;
   services: string[];
-  comment: string;
+  roofArea: string;
 };
 
 const emptyForm: FormState = {
@@ -61,8 +61,18 @@ const emptyForm: FormState = {
   customerType: "",
   company: "",
   services: [],
-  comment: "",
+  roofArea: "",
 };
+
+function formatRoofArea(value: string) {
+  return value.replace(/\D/g, "").slice(0, 5);
+}
+
+function isValidRoofArea(value: string) {
+  if (!/^\d+$/.test(value)) return false;
+  const n = Number.parseInt(value, 10);
+  return n >= 1;
+}
 
 function formatLetters(value: string) {
   return value.replace(/[^A-Za-zÆØÅæøåÉéÜü\s.'-]/g, "");
@@ -104,7 +114,10 @@ export default function LandingPage() {
       if (form.customerType === "Erhverv" && !form.company.trim()) invalid.push("company");
     }
 
-    if (step === 4 && form.services.length === 0) invalid.push("services");
+    if (step === 4) {
+      if (form.services.length === 0) invalid.push("services");
+      if (!isValidRoofArea(form.roofArea)) invalid.push("roofArea");
+    }
 
     setInvalidFields(invalid);
     return invalid.length === 0;
@@ -134,7 +147,7 @@ export default function LandingPage() {
           customerType: form.customerType,
           company: form.company,
           service: form.services[0] ?? "",
-          comment: form.comment,
+          roofArea: form.roofArea,
           attribution: getStoredAttribution(),
         }),
       });
@@ -484,18 +497,28 @@ function ProjectStep({
           );
         })}
       </div>
-      <label className="comment-field">
-        <span>
-          Kommentar <small>(valgfri)</small>
-        </span>
-        <textarea
-          className="form-textarea"
-          value={form.comment}
-          onChange={(event) => updateField("comment", event.target.value)}
-          placeholder="Skriv gerne lidt om dit projekt, ønsker eller spørgsmål..."
-          rows={4}
-        />
-      </label>
+      <div className="roof-size-section">
+        <h3 className="roof-size-heading">Hvor stort er taget?</h3>
+        <label className="field-label roof-area-field">
+          Hvor mange kvadratmeter er dit tag? *
+          <span className="roof-area-input-wrap">
+            <input
+              className={`form-input roof-area-input ${invalidFields.includes("roofArea") ? "invalid" : ""}`}
+              value={form.roofArea}
+              onChange={(event) => updateField("roofArea", formatRoofArea(event.target.value))}
+              placeholder="Fx 120"
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              aria-invalid={invalidFields.includes("roofArea")}
+              required
+            />
+            <span className="roof-area-unit" aria-hidden="true">
+              m²
+            </span>
+          </span>
+        </label>
+      </div>
     </fieldset>
   );
 }

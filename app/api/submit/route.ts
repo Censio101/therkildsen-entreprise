@@ -17,6 +17,10 @@ export async function POST(request: Request) {
     if (!isValidDanishPhone(data.phone)) {
       return NextResponse.json({ error: "Ugyldigt telefonnummer" }, { status: 400 });
     }
+    const roofArea = data.roofArea?.trim() ?? "";
+    if (!/^\d+$/.test(roofArea) || Number.parseInt(roofArea, 10) < 1) {
+      return NextResponse.json({ error: "Angiv tagets størrelse i kvadratmeter" }, { status: 400 });
+    }
 
     const webhookPayload = buildLeadWebhookPayload(data, attribution ?? {});
     const [webhook, emailed] = await Promise.all([
