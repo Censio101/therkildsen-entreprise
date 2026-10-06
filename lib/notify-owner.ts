@@ -80,7 +80,7 @@ async function sendMailgunEmail(subject: string, text: string, replyTo?: string)
   }
 
   const body = new URLSearchParams({
-    from: `Therkildsen Entreprise Funnel Page <${MAILGUN_FROM}>`,
+    from: `Therkildsen Funnel Page <${MAILGUN_FROM}>`,
     to,
     subject,
     text,
