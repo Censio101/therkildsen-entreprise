@@ -299,10 +299,6 @@ export default function LandingPage() {
                   </span>
                   <span>
                     <Check className="h-5 w-5" />
-                    Ingen binding
-                  </span>
-                  <span>
-                    <Check className="h-5 w-5" />
                     Små og store projekter
                   </span>
                 </div>
