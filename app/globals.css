@@ -83,7 +83,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .person-role { display: flex; max-width: 96px; flex-direction: column; margin: 7px 0 0; color: rgba(255,255,255,.7); font-family: "Manrope", Arial, sans-serif; font-size: 11px; font-weight: 600; line-height: 1.25; text-align: center; }
 .person-role strong { color: #fff; font-size: 12px; font-weight: 800; letter-spacing: -.01em; }
 .personal-headline { flex: 1 1 auto; min-width: 0; }
-.personal-card h1 { margin: 0; font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: clamp(1.5rem, 2.7vw, 2.2rem); font-weight: 800; line-height: 1.08; letter-spacing: -.04em; }
+.personal-card h1 { margin: 0; font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: clamp(1.5rem, 2.7vw, 32px); font-weight: 800; line-height: 1.08; letter-spacing: -.04em; }
 .personal-card h1 em { color: #b6df50; font-style: normal; }
 
 .lead-card { z-index: 2; width: min(100%, 720px); border-radius: 12px; background: #fffefb; padding: 36px 32px 24px; color: #1d211d; box-shadow: 0 32px 82px rgba(0,0,0,.42); }
