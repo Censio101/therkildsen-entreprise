@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackLead } from "@/lib/meta-pixel";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -75,6 +76,8 @@ export default function LandingPage() {
   const [form, setForm] = useState<FormState>(emptyForm);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const updateField = (field: keyof FormState, value: string | string[]) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -108,14 +111,54 @@ export default function LandingPage() {
     return invalid.length === 0;
   };
 
-  const next = () => {
-    if (!validateStep()) return;
-    if (step === 4) {
-      setSubmitted(true);
-      window.setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 0);
+  const next = async () => {
+    if (!validateStep() || isSubmitting) return;
+    if (step < 4) {
+      setSubmitError(null);
+      setStep((current) => current + 1);
       return;
     }
-    setStep((current) => current + 1);
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          address: form.address,
+          city: form.city,
+          postcode: form.postcode,
+          customerType: form.customerType,
+          company: form.company,
+          service: form.services[0] ?? "",
+          comment: form.comment,
+        }),
+      });
+      const json = (await res.json()) as { error?: string };
+      if (!res.ok) {
+        setSubmitError(json.error ?? "Kunne ikke sende henvendelsen. Prøv igen om lidt.");
+        return;
+      }
+      await trackLead({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        city: form.city,
+        postcode: form.postcode,
+        customerType: form.customerType,
+        service: form.services[0] ?? "",
+      });
+      setSubmitted(true);
+      window.setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 0);
+    } catch {
+      setSubmitError("Kunne ikke sende henvendelsen. Prøv igen om lidt.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleService = (service: string) => {
@@ -215,7 +258,7 @@ export default function LandingPage() {
                         Tilbage
                       </button>
                     )}
-                    <button type="submit" className="primary-cta">
+                    <button type="submit" className="primary-cta" disabled={isSubmitting}>
                       {step === 4 ? (
                         <span>Send forespørgsel</span>
                       ) : (
@@ -231,6 +274,7 @@ export default function LandingPage() {
                     <ShieldCheck className="h-3.5 w-3.5" />
                     Dine oplysninger behandles fortroligt.
                   </p>
+                  {submitError && <p className="submit-error">{submitError}</p>}
                 </form>
 
                 <div className="trust-points">
