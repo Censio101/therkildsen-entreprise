@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { captureAttributionFromWindow, getStoredAttribution } from "@/lib/attribution";
 import { trackLead } from "@/lib/meta-pixel";
+import { formatPhoneInput, isValidDanishPhone } from "@/lib/phone";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -63,11 +64,6 @@ const emptyForm: FormState = {
   comment: "",
 };
 
-function formatPhone(value: string) {
-  const digits = value.replace(/\D/g, "").slice(0, 8);
-  return digits.match(/.{1,2}/g)?.join(" ") ?? "";
-}
-
 function formatLetters(value: string) {
   return value.replace(/[^A-Za-zÆØÅæøåÉéÜü\s.'-]/g, "");
 }
@@ -91,11 +87,9 @@ export default function LandingPage() {
 
   const validateStep = () => {
     const invalid: string[] = [];
-    const phoneDigits = form.phone.replace(/\D/g, "");
-
     if (step === 1) {
       if (!form.name.trim() || /\d/.test(form.name)) invalid.push("name");
-      if (phoneDigits.length !== 8) invalid.push("phone");
+      if (!isValidDanishPhone(form.phone)) invalid.push("phone");
       if (!/^\S+@\S+\.\S+$/.test(form.email)) invalid.push("email");
     }
 
@@ -359,7 +353,7 @@ function ContactStep({ form, updateField, invalidFields }: StepProps) {
           <Field
             label="Telefonnummer"
             value={form.phone}
-            onChange={(value) => updateField("phone", formatPhone(value))}
+            onChange={(value) => updateField("phone", formatPhoneInput(value))}
             placeholder="Fx 41 15 23 77"
             invalid={invalidFields.includes("phone")}
             type="tel"

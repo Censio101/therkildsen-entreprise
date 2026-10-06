@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { LeadAttribution } from "@/lib/attribution";
 import { notifyOwnerByEmail, type LeadFormData } from "@/lib/notify-owner";
+import { isValidDanishPhone } from "@/lib/phone";
 import { sendLeadWebhook } from "@/lib/send-webhook";
 import { buildLeadWebhookPayload } from "@/lib/webhook-payload";
 
@@ -12,6 +13,9 @@ export async function POST(request: Request) {
     const { attribution, ...data } = body;
     if (!data.name || !data.email || !data.phone || !data.service) {
       return NextResponse.json({ error: "Manglende felter" }, { status: 400 });
+    }
+    if (!isValidDanishPhone(data.phone)) {
+      return NextResponse.json({ error: "Ugyldigt telefonnummer" }, { status: 400 });
     }
 
     const webhookPayload = buildLeadWebhookPayload(data, attribution ?? {});

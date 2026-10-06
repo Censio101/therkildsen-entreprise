@@ -1,3 +1,5 @@
+import { formatPhoneDisplay } from "./phone";
+
 export type LeadFormData = {
   name: string;
   phone: string;
@@ -34,15 +36,10 @@ function formatKundetype(customerType?: string, company?: string) {
   return customerType;
 }
 
-function formatPhone(phone?: string) {
-  const digits = (phone ?? "").replace(/\D/g, "").slice(0, 8);
-  return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
-}
-
 export function buildLeadFieldBlock(data: LeadFormData) {
   return [
     fieldLine("Navn", data.name),
-    fieldLine("Telefon", formatPhone(data.phone)),
+    fieldLine("Telefon", formatPhoneDisplay(data.phone)),
     fieldLine("Email", data.email),
     fieldLine("Adresse", formatAdresse(data.address, data.postcode, data.city)),
     fieldLine("Kundetype", formatKundetype(data.customerType, data.company)),

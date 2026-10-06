@@ -1,5 +1,6 @@
 import type { LeadAttribution } from "./attribution";
 import type { LeadFormData } from "./notify-owner";
+import { formatPhoneDisplay } from "./phone";
 
 /** Keys used in Make.com → Google Sheets mapping (do not rename without updating the scenario). */
 export const MAKE_WEBHOOK_FIELD_NAMES = [
@@ -28,11 +29,6 @@ export const MAKE_WEBHOOK_FIELD_NAMES = [
   "fbclid",
 ] as const;
 
-function formatPhone(phone?: string) {
-  const digits = (phone ?? "").replace(/\D/g, "").slice(0, 8);
-  return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
-}
-
 export function buildLeadWebhookPayload(data: LeadFormData, attribution: LeadAttribution = {}) {
   const platform = attribution.platform;
   const adsName = attribution.utmContent;
@@ -43,7 +39,7 @@ export function buildLeadWebhookPayload(data: LeadFormData, attribution: LeadAtt
     source: "therkildsen-entreprise",
     submittedAt: new Date().toISOString(),
     name: data.name,
-    phone: formatPhone(data.phone),
+    phone: formatPhoneDisplay(data.phone),
     email: data.email,
     address: data.address,
     city: data.city,
