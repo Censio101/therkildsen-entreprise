@@ -181,6 +181,7 @@ export default function LandingPage() {
           <div className="hero-green-tint absolute inset-0 -z-20" />
           <div className="hero-contrast absolute inset-0 -z-10" />
           <div className="hero-grain absolute inset-0 -z-10" />
+          <div className="hero-top-shade absolute inset-x-0 top-0 -z-10" />
 
           <header className={`hero-header ${submitted ? "hero-header-success" : ""}`}>
             <a href="#top" aria-label="Therkildsen Entreprise forside" className="brand-lockup">
@@ -206,14 +207,13 @@ export default function LandingPage() {
                       <img src={vanSrc} alt="Mejner Therkildsen" className="h-full w-full object-cover [object-position:6%_28%]" />
                     </span>
                     <p className="person-role">
-                      Ejer af Therkildsen
-                      <br />
-                      Entreprise
+                      <strong>Mejner Therkildsen</strong>
+                      Ejer
                     </p>
                   </div>
-                  <div>
+                  <div className="personal-headline">
                     <h1>
-                      Få en <em>uforpligtende vurdering</em>
+                      Få en professionel og <em>uforpligtende vurdering</em> af dit byggeprojekt
                     </h1>
                   </div>
                 </div>
@@ -229,7 +229,14 @@ export default function LandingPage() {
                 >
                   {step === 1 && <ContactStep form={form} updateField={updateField} invalidFields={invalidFields} />}
                   {step === 2 && <AddressStep form={form} updateField={updateField} invalidFields={invalidFields} />}
-                  {step === 3 && <CustomerStep form={form} updateField={updateField} invalidFields={invalidFields} />}
+                  {step === 3 && (
+                    <CustomerStep
+                      form={form}
+                      updateField={updateField}
+                      invalidFields={invalidFields}
+                      onPrivat={() => setStep(4)}
+                    />
+                  )}
                   {step === 4 && (
                     <ProjectStep
                       form={form}
@@ -259,7 +266,7 @@ export default function LandingPage() {
                       ) : (
                         <>
                           <span className="sm:hidden">Få et uforpligtende tilbud</span>
-                          <span className="hidden sm:inline">Få en uforpligtende vurdering</span>
+                          <span className="hidden sm:inline">Få en professionel og uforpligtende vurdering</span>
                         </>
                       )}
                       <ArrowRight className="h-4 w-4 shrink-0" />
@@ -404,10 +411,10 @@ function AddressStep({ form, updateField, invalidFields }: StepProps) {
   );
 }
 
-function CustomerStep({ form, updateField, invalidFields }: StepProps) {
+function CustomerStep({ form, updateField, invalidFields, onPrivat }: StepProps & { onPrivat: () => void }) {
   return (
     <fieldset>
-      <div className={`grid gap-4 sm:grid-cols-2 ${invalidFields.includes("customerType") ? "invalid-group" : ""}`}>
+      <div className={`grid grid-cols-2 gap-3 sm:gap-4 ${invalidFields.includes("customerType") ? "invalid-group" : ""}`}>
         {(["Privat", "Erhverv"] as const).map((type) => {
           const Icon = type === "Privat" ? HomeIcon : Building2;
           return (
@@ -415,7 +422,10 @@ function CustomerStep({ form, updateField, invalidFields }: StepProps) {
               type="button"
               key={type}
               className={`person-type ${form.customerType === type ? "selected" : ""}`}
-              onClick={() => updateField("customerType", type)}
+              onClick={() => {
+                updateField("customerType", type);
+                if (type === "Privat") onPrivat();
+              }}
             >
               <Icon className="h-6 w-6" />
               <span>{type}</span>
