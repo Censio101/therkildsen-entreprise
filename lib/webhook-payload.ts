@@ -25,7 +25,6 @@ export const MAKE_WEBHOOK_FIELD_NAMES = [
   "utm_term",
   "utm_content",
   "fbadid",
-  "platform",
   "fbclid",
 ] as const;
 
@@ -63,7 +62,6 @@ export function buildLeadWebhookPayload(data: LeadFormData, attribution: LeadAtt
     utm_term: attribution.utmTerm,
     utm_content: attribution.utmContent,
     fbadid: attribution.fbadid,
-    platform,
     fbclid: attribution.fbclid,
   };
 }
