@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { captureAttributionFromWindow, getStoredAttribution } from "@/lib/attribution";
 import { trackLead } from "@/lib/meta-pixel";
 import {
   ArrowRight,
@@ -79,6 +80,10 @@ export default function LandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  useEffect(() => {
+    captureAttributionFromWindow();
+  }, []);
+
   const updateField = (field: keyof FormState, value: string | string[]) => {
     setForm((current) => ({ ...current, [field]: value }));
     setInvalidFields((current) => current.filter((item) => item !== field));
@@ -136,6 +141,7 @@ export default function LandingPage() {
           company: form.company,
           service: form.services[0] ?? "",
           comment: form.comment,
+          attribution: getStoredAttribution(),
         }),
       });
       const json = (await res.json()) as { error?: string };
