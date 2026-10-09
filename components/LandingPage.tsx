@@ -349,7 +349,7 @@ type StepProps = {
 function ContactStep({ form, updateField, invalidFields }: StepProps) {
   return (
     <fieldset>
-      <div className="grid gap-5">
+      <div className="grid gap-4 sm:gap-5">
         <Field
           label="Fulde navn"
           value={form.name}
@@ -358,7 +358,7 @@ function ContactStep({ form, updateField, invalidFields }: StepProps) {
           invalid={invalidFields.includes("name")}
           autoComplete="name"
         />
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
           <Field
             label="Telefonnummer"
             value={form.phone}
@@ -387,7 +387,7 @@ function ContactStep({ form, updateField, invalidFields }: StepProps) {
 function AddressStep({ form, updateField, invalidFields }: StepProps) {
   return (
     <fieldset>
-      <div className="grid gap-5">
+      <div className="grid gap-4 sm:gap-5">
         <Field
           label="Adresse"
           value={form.address}
@@ -396,7 +396,7 @@ function AddressStep({ form, updateField, invalidFields }: StepProps) {
           invalid={invalidFields.includes("address")}
           autoComplete="street-address"
         />
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
           <Field
             label="By"
             value={form.city}
@@ -444,7 +444,7 @@ function CustomerStep({ form, updateField, invalidFields, onPrivat }: StepProps 
         })}
       </div>
       {form.customerType === "Erhverv" && (
-        <div className="mt-5">
+        <div className="mt-4 sm:mt-5">
           <Field
             label="Virksomhedsnavn"
             value={form.company}

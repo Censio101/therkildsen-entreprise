@@ -204,38 +204,42 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .person-role { max-width: 78px; margin-top: 5px; font-size: 10px; }
   .person-role strong { font-size: 10.5px; }
   .personal-card h1 { font-size: clamp(1.1rem, 5.2vw, 1.4rem); line-height: 1.15; white-space: normal; }
-  .lead-card { padding: 26px 16px 18px; }
-  .lead-card legend { font-size: 1.8rem; }
-  .field-label { font-size: 18px; letter-spacing: -.01em; }
+  .lead-card { padding: 28px 24px 22px; }
+  .lead-card legend { font-size: 1.25rem; }
+  .field-label { font-size: 14px; font-weight: 600; letter-spacing: 0; }
   .trust-points { flex-wrap: wrap; justify-content: center; gap: 8px 14px; margin-top: 18px; font-size: 11.5px; letter-spacing: .03em; white-space: normal; }
   .trust-points span { gap: 5px; white-space: nowrap; }
   .trust-points svg { height: 15px; width: 15px; }
-  .form-input, .form-select { height: 60px; font-size: 17px; }
-  .form-actions { min-height: 68px; margin-top: 24px; }
-  .form-actions.has-back { padding-bottom: 42px; }
-  .primary-cta { min-height: 70px; gap: 10px; padding-left: 12px; padding-right: 12px; font-size: clamp(.9rem, 4.4vw, 1.1rem); letter-spacing: -.02em; white-space: nowrap; }
-  .back-button { font-size: 11px; }
-  .person-type { min-height: 104px; gap: 12px; padding: 16px; font-size: 18px; }
+  .form-input, .form-select { height: 48px; min-height: 48px; border-radius: 8px; padding: 0 16px; font-size: 14px; font-weight: 500; }
+  .form-input { margin-top: 4px; }
+  .form-select { background-position: calc(100% - 17px) 18px, calc(100% - 12px) 18px; }
+  .form-actions { min-height: 48px; margin-top: 16px; }
+  .form-actions.has-back { padding-bottom: 36px; }
+  .primary-cta { min-height: 48px; gap: 8px; padding: 12px 20px; font-size: 14px; letter-spacing: -.01em; white-space: nowrap; }
+  .back-button { font-size: 14px; font-weight: 600; }
+  .privacy-note { margin-top: 10px; font-size: 12px; }
+  .person-type { min-height: 100px; gap: 10px; padding: 16px; font-size: 14px; border-radius: 12px; }
   .person-type svg:not(.selected-check) { height: 26px; width: 26px; }
   .selected-check { top: 10px; right: 10px; }
   .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
   .service-option { min-height: 100px; padding: 14px; font-size: 14px; }
   .service-option > svg { height: 21px; width: 21px; }
   .service-tick { top: 12px; right: 12px; height: 19px; width: 19px; }
-  .project-step-header { margin-bottom: 20px; }
-  .project-step-header h2 { font-size: 1.7rem; }
-  .project-step-header p { margin-top: 7px; font-size: 14px; }
-  .project-services { gap: 11px; }
-  .project-service-option { min-height: 88px; gap: 13px; border-radius: 10px; padding: 13px; }
-  .project-service-icon { height: 44px; width: 44px; border-radius: 10px; }
+  .project-step-header { margin-bottom: 1.25rem; }
+  .project-step-header h2 { font-size: 1.25rem; letter-spacing: -.03em; line-height: 1.25; }
+  .project-step-header p { margin-top: 4px; font-size: 14px; line-height: 1.5; }
+  .project-services { gap: 12px; }
+  .project-service-option { min-height: 76px; gap: 12px; border-radius: 12px; padding: 12px 16px; }
+  .project-service-icon { height: 44px; width: 44px; border-radius: 8px; }
   .project-service-icon svg { height: 22px; width: 22px; }
   .project-service-copy { gap: 2px; }
-  .project-service-copy strong { font-size: 15px; }
+  .project-service-copy strong { font-size: 14px; }
   .project-service-copy small { font-size: 12px; }
-  .project-radio { height: 21px; width: 21px; }
-  .roof-size-section { margin-top: 20px; }
-  .roof-size-heading { margin-bottom: 12px; font-size: 1.35rem; }
-  .roof-area-unit { font-size: 17px; }
+  .project-radio { height: 20px; width: 20px; }
+  .roof-size-section { margin-top: 1.25rem; }
+  .roof-size-heading { margin-bottom: 12px; font-size: 1.25rem; letter-spacing: -.03em; }
+  .roof-area-input-wrap { margin-top: 4px; }
+  .roof-area-unit { font-size: 14px; font-weight: 700; }
   .success-stage { padding: 16px 16px 20px; align-items: flex-start; }
   .success-wrap { width: 100%; }
   .success-card { padding: 26px 18px 22px; }
