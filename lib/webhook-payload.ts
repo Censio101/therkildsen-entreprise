@@ -1,4 +1,4 @@
-import type { LeadAttribution } from "./attribution";
+import { enrichAttribution, type LeadAttribution } from "./attribution";
 import type { LeadFormData } from "./notify-owner";
 import { formatPhoneDisplay } from "./phone";
 
@@ -30,10 +30,11 @@ export const MAKE_WEBHOOK_FIELD_NAMES = [
 ] as const;
 
 export function buildLeadWebhookPayload(data: LeadFormData, attribution: LeadAttribution = {}) {
-  const platform = attribution.platform;
-  const adsName = attribution.utmContent;
-  const adsetName = attribution.utmTerm;
-  const metaTrackingId = attribution.fbadid;
+  const a = enrichAttribution(attribution);
+  const platform = a.platform;
+  const adsName = a.utmContent;
+  const adsetName = a.utmTerm;
+  const metaTrackingId = a.fbadid;
 
   return {
     source: "therkildsen-entreprise",
@@ -52,12 +53,12 @@ export function buildLeadWebhookPayload(data: LeadFormData, attribution: LeadAtt
     "Ads name": adsName,
     "Adset name": adsetName,
     "Meta tracking ID": metaTrackingId,
-    utm_source: attribution.utmSource,
-    utm_medium: attribution.utmMedium,
-    utm_campaign: attribution.utmCampaign,
-    utm_term: attribution.utmTerm,
-    utm_content: attribution.utmContent,
-    fbadid: attribution.fbadid,
-    fbclid: attribution.fbclid,
+    utm_source: a.utmSource,
+    utm_medium: a.utmMedium,
+    utm_campaign: a.utmCampaign,
+    utm_term: a.utmTerm,
+    utm_content: a.utmContent,
+    fbadid: a.fbadid,
+    fbclid: a.fbclid,
   };
 }

@@ -1,3 +1,5 @@
+import { getMetaClickCookies } from "./meta-cookies";
+
 export const META_PIXEL_ID = "1598150944492089";
 
 async function sha256(value: string): Promise<string> {
@@ -31,6 +33,8 @@ export async function trackLead(data: {
     sha256("dk"),
   ]);
 
+  const { fbc, fbp } = getMetaClickCookies();
+
   window.fbq(
     "track",
     "Lead",
@@ -49,6 +53,8 @@ export async function trackLead(data: {
       ct,
       zp,
       country: co,
+      ...(fbc ? { fbc } : {}),
+      ...(fbp ? { fbp } : {}),
     }
   );
 }

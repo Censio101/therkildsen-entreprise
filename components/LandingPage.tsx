@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { captureAttributionFromWindow, getStoredAttribution } from "@/lib/attribution";
+import { captureAttributionFromWindow } from "@/lib/attribution";
 import { trackLead } from "@/lib/meta-pixel";
 import { formatPhoneInput, isValidDanishPhone } from "@/lib/phone";
 import {
@@ -148,7 +148,7 @@ export default function LandingPage() {
           company: form.company,
           service: form.services[0] ?? "",
           roofArea: form.roofArea,
-          attribution: getStoredAttribution(),
+          attribution: captureAttributionFromWindow(),
         }),
       });
       const json = (await res.json()) as { error?: string };
